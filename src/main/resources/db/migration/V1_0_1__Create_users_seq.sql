@@ -1,0 +1,3 @@
+CREATE SEQUENCE IF NOT EXISTS users_tb_seq
+    START 1
+    INCREMENT BY 1;

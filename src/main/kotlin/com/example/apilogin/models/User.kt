@@ -1,25 +1,25 @@
 package com.example.apilogin.models
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Column
-import jakarta.persistence.Table
+import jakarta.persistence.*
+import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.NotEmpty
+import org.hibernate.validator.constraints.UniqueElements
 
 
-@Entity()
-@Table(name = "users_tb")
+@Entity(name = "users_tb")
 data class User(
 
    @Id
-   @GeneratedValue(strategy = GenerationType.SEQUENCE)
+   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_tb_seq")
+   @SequenceGenerator(name = "users_tb_seq", sequenceName = "users_tb_seq", allocationSize = 1)
    val id: Long,
 
    @Column(name = "name", nullable = false)
+
    val name: String,
 
-   @Column(name = "email", nullable = false)
+   @Column(name = "email", nullable = false, unique = true)
+   @NotEmpty(message = "Preenchimento obrigatório!") @Email(message = "Email inválido!")
    val email: String,
 
    @Column(name = "phone", nullable = false)
